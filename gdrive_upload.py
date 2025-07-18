@@ -5,7 +5,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 SCOPES = ['https://www.googleapis.com/auth/drive.file']
-FOLDER_ID = '1Xf1aQgs0AOWdFPihv2ESmmsFl-FoRUDg' 
+FOLDER_ID = '1Xf1aQgs0AOWdFPihv2ESmmsFl-FoRUDg'  # Ganti dengan ID folder Drive kamu
 
 def authenticate():
     creds = None
@@ -13,7 +13,8 @@ def authenticate():
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     if not creds or not creds.valid:
         flow = InstalledAppFlow.from_client_secrets_file('credentials.json', SCOPES)
-        creds = flow.run_console()
+        # Gunakan run_local_server, bukan run_console
+        creds = flow.run_local_server(port=0)
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
     return creds
